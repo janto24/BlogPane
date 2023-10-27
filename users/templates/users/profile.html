@@ -1,0 +1,54 @@
+{% extends 'PaneApp/base.html' %}
+{% load static %}
+{% block main_content %}
+
+
+<div class="w3-container w3-card-4 w3-center w3-padding-32">
+    <h5><b>{{user.username}}</b></h5>
+</div>
+
+{% block messages %}
+
+{% if user.is_superuser %}
+    {% if avatar %}
+    <div class="w3-card-4 w3-center w3-black w3-display-container">
+        <img class="w3-circle" height="400px" src="{{avatar}}" alt="avatar">
+        <div class="w3-display-bottommiddle w3-large w3-black"><a class="w3-button w3-black w3-border" title="Cambiar foto de perfil" href="{% url 'users:UpdateAvatar' %}"><i class="fa fa-file-image-o"></i></a></div>
+    </div>
+    {% else %}
+    <div class="w3-card-4 w3-center w3-black w3-display-container">
+        <img src="{% static 'PaneApp/img/empty_avatar.png' %}" class="w3-circle" height="400px" alt="avatar">
+        <div class="w3-display-bottommiddle w3-large w3-black"><a class="w3-button w3-black w3-border" title="Agregar foto de perfil" href="{% url 'users:UpdateAvatar' %}"><i class="fa fa-file-image-o"></i></a></div>
+    </div>
+    {% endif %}
+{% endif %}
+
+<!-- Listado de datos usuario -->
+<div class="w3-card-4 w3-center">
+    <h4>
+        <ul>
+            <ol>Nombre: {{user.first_name}}</ol>
+            <ol>Apellido: {{user.last_name}}</ol>
+            <ol>Email: {{user.email}}</ol>
+            <ol>Ultimo ingreso: {{user.last_login}}</ol>
+        <ol>Te uniste: {{user.date_joined}}</ol>
+    </ul>
+    </h4>
+</div>
+
+<!-- Botones -->
+<a button type="button" class="w3-button w3-block w3-round-large w3-indigo" href=" {% url 'PaneApp:Messages' %} "><i class="fa fa-envelope-o"></i> Inbox</button></a>
+
+<div class="w3-bar w3-padding-32 w3-center">
+    <a button type="button" class="w3-button w3-round-large w3-button w3-large w3-indigo w3-right" href=" {% url 'users:UpdateProfile' %} ">Modificar</button></a>
+    <a button type="button" class="w3-button w3-round-large w3-button w3-large w3-indigo w3-left" href=" {% url 'PaneApp:Inicio' %} ">Volver</button></a>
+
+</div>
+
+{% endblock messages %}
+
+
+
+
+
+{% endblock main_content %}

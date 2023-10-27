@@ -1,0 +1,29 @@
+{% extends 'PaneApp/base.html' %}
+{% load static %}
+    
+{% block main_content %}
+<!-- Titulo y subtitulo -->
+<div class="w3-container w3-padding-16 w3-center w3-topbar w3-bottombar w3-border-indigo w3-round">
+    <h1>{{message}}</h1>
+    <h3 class="w3-opacity" style="text-shadow:1px 1px 0 #444">{{subtitle}}</h3>
+</div>
+
+{% if user.is_authenticated %}
+    <div class="w3-container w3-pale-blue w3-leftbar w3-rightbar w3-border-blue w3-center">
+        <h5 style="color:navy">Bienvenid@, <b>{{user.username}}</b>.</h5>
+    </div>   
+{% endif %}
+
+<!-- Contenido (imagen principal) -->
+<div class="w3-panel">
+    <div class="aligncenter w3-black">
+        <img src="{% static 'PaneApp/img/banner2.png' %}" class="w3-round" alt="cities">
+        <style> -->
+            .aligncenter {
+            text-align: center;
+            };
+        </style>
+    </div>
+</div>
+
+{% endblock main_content %}

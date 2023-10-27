@@ -1,0 +1,89 @@
+{% extends 'PaneApp/base.html' %}
+
+
+{% block main_content %}
+{% block Desc %}
+
+<!-- Title and subtitle -->
+
+<div class="w3-container w3-padding-16 w3-center w3-topbar w3-bottombar w3-border-indigo w3-round">
+  <h1>{{title.title}}</h1>
+  <h3 class="w3-opacity" style="text-shadow:1px 1px 0 #444">{{subtitle}}</h3>
+</div>
+
+
+<!-- Form for search promotions, discounts, etc -->
+<form action="{% url 'PaneApp:Desc' %}" method="get" class="w3-center">
+
+  <h5 class="w3-indigo">{{category.title}}</h5>
+  <p><b>{{search}}:</b></p>
+  <input type="text" name="categoria" id="categoria">
+
+  <!-- Only show if city was found -->
+  {% if request.GET.categoria %}
+    <a button class="w3-button w3-round-large w3-button w3-indigo" href="{% url 'PaneApp:Desc' %}"><i class="fa fa-list-ul"></i> <b>Listar todo</b></a>
+  {% endif %}
+
+  <!-- Botones -->
+  <input button type="submit" class="w3-button w3-round-large w3-button w3-indigo" value="Buscar">
+</form>
+
+{% if desc %}
+
+  <div class="w3-panel w3-yellow">
+    {% if desc|length == 1 %}
+      <small>Ya contamos con <b>{{desc|length}}</b> descyebtis</small>
+    {% else %}
+      <small>Ya contamos con <b>{{desc|length}}</b> descuentos!</small>
+    {% endif %}
+  </div>
+  {% csrf_token %}
+  
+
+  <!-- Tabla -->
+  <div class="w3-container">
+    <table class="w3-table-all w3-hoverable">
+      <thead>
+        <tr class="w3-indigo w3-wide">
+          <th>Categoria</th>
+          <th>Descripcion</th>
+          <th>Detalle</th>
+          <th>Válido hasta</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for dec in desc %}
+          <tr>
+            <th>{{dec.categoria}}</th>
+            <td>{{dec.descripcion}}</td>
+            <td>{{dec.detalle}}</td>
+            <td>{{dec.valid_through}}</td>
+            <td>
+              {% if user.is_authenticated %}
+                <a href="{% url 'PaneApp:DeleteDesc' desc.id %}" class="w3-button w3-round w3-indigo w3-small"><i class="fa fa-trash"></i> Borrar</a>
+                <a href="{% url 'PaneApp:EditDesc' desc.id %}" class="w3-button w3-round w3-indigo w3-small"><i class="fa fa-edit"></i> Editar</a>
+              {% endif %}
+            </td>
+          </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% else %}
+  <div class="w3-panel w3-blue-gray"></div>
+    <h5>Aun no contamos descuentos en el blog, tu puedes ser el primero!</h5>
+  </div>
+{% endif %}
+
+<!-- Botones -->
+<div class="w3-bar w3-padding-32">
+  <a button class="w3-button w3-round-large w3-button w3-large w3-indigo" href="{% url 'PaneApp:NewDesc' %}"><i class="fa fa-edit"></i> Agregar Descuento</a>
+</div>
+
+
+{% endblock Desc %}
+{% endblock main_content %}
+
