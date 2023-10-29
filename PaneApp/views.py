@@ -104,7 +104,6 @@ def posts(request):
 @login_required
 def agregar_desc(request):
 
-    # Para buscar si el usuario tiene avatar
     try:
         avatar = Avatar.objects.get(user=request.user.id)
         avatar = avatar.avatar.url
@@ -116,11 +115,10 @@ def agregar_desc(request):
         form = AgregarDesc()
 
     else:
-        # Data submitted. Paso formulario con datos ingresados por POST
         form = AgregarDesc(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('PaneApp:Descs')
+            return redirect('PaneApp:Desc')
 
     context = {
         'form': form,
@@ -128,6 +126,7 @@ def agregar_desc(request):
         'avatar': avatar,
     }
     return render(request, 'PaneApp/new_desc.html', context)
+
 
 
 @login_required
@@ -198,7 +197,7 @@ def edit_post(request, post_id):
 
 @login_required
 def edit_desc(request, desc_id):
-    """Edit an existing promo."""
+
 
     # el usuario tiene avatar?
     try:
@@ -245,8 +244,8 @@ def post_detail(request, post_id):
         avatar = ''
     
     context = {
-        'title': 'Detail',
-        'subtitle': post.title,
+        'resto': 'Detail',
+        'subtitle': post.resto,
         'avatar': avatar,
         'post': post
     }
