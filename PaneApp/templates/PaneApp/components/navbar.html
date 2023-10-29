@@ -5,9 +5,7 @@
     <a href="{% url 'PaneApp:Posts' %}" class="w3-bar-item w3-button"><i class="fa fa-list-ul"></i> Posts</a>
     <a href="{% url 'PaneApp:Desc' %}" class="w3-bar-item w3-button"><i class="fa fa-bookmark-o"></i> Descuentos</a>
  
-    <a href="{% url 'PaneApp:About' %}" class="w3-bar-item w3-button"><i class="fa fa-info-circle"></i> About</a>
-
-    <!-- Dropdown list -->
+     <!-- Dropdown list -->
     {% if user.is_authenticated %}
         <div class="w3-dropdown-hover w3-right">
 
