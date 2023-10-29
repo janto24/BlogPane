@@ -21,8 +21,6 @@ class NuevoPost(forms.ModelForm):
 
 
 class AgregarDesc(forms.ModelForm):
-    #Nuevo Desc
-
     class Meta:
         model = Oportunidades
         fields = [
